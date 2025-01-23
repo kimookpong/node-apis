@@ -1,7 +1,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
+const {greet} = require("wu-package");
 const app = express();
 
 // Middleware
@@ -14,6 +14,7 @@ fs.readdirSync(modulesPath).forEach((module) => {
   app.use(`/api/${module}`, moduleRoutes);
 });
 
+console.log(greet("World"));
 // Error handling middleware
 const errorHandler = require("./middleware/error-handler");
 app.use(errorHandler);

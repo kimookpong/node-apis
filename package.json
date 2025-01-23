@@ -17,6 +17,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "fs": "^0.0.1-security",
-    "oracledb": "^6.7.1"
+    "oracledb": "^6.7.1",
+    "wu-package": "^1.0.1"
   }
 }

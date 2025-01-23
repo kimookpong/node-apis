@@ -1,5 +1,6 @@
 const Database = require("../db-connection");
 
+
 exports.getAll = async () => {
   const connection = await Database.getConnection();
   const result = await connection.execute(
