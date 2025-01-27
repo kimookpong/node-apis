@@ -15,6 +15,13 @@ fs.readdirSync(modulesPath).forEach((module) => {
 });
 
 // Error handling middleware
+app.use((req, res, next) => {
+  res.status(404).json({
+    code: 404,
+    message: "The requested route was not found on the server.",
+    path: process.env.NODE_ENV === "development" ? req.originalUrl: undefined,
+  });
+});
 const errorHandler = require("./middleware/error-handler");
 app.use(errorHandler);
 

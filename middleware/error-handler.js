@@ -9,7 +9,7 @@ module.exports = (err, req, res, next) => {
 
   // Send the error response
   res.status(statusCode).json({
-    success: false,
+    code: statusCode,
     message: err.message || "Internal Server Error",
     details: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });

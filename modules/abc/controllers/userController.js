@@ -2,7 +2,7 @@ const userModel = require("../models/userModel");
 
 exports.Index = async (req, res, next) => {
   try {
-    res.json("test2");
+    res.json({ res: "test2" });
   } catch (err) {
     next(err);
   }
@@ -11,7 +11,16 @@ exports.Index = async (req, res, next) => {
 exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await userModel.getAll();
-    res.json(users);
+    res.json({ dt: users });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getFind = async (req, res, next) => {
+  try {
+    const users = await userModel.getFind(req);
+    res.json({ dt: users });
   } catch (err) {
     next(err);
   }
