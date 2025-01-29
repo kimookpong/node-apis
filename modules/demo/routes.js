@@ -6,16 +6,19 @@ const SwaggerDoc = require("../../middleware/swagger");
 const router = express.Router();
 
 // Swagger UI setup
-const swaggerDocument = new SwaggerDoc({ module: "abc" });
+const swaggerDocument = new SwaggerDoc({ module: "demo" });
 router.use(
   "/docs",
   basicAuth({
-    users: { "admin": "admin" },
+    users: { "demo": "demo" },
     challenge: true,
   }),
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument.getSwaggerSpec())
 );
+
+
+
 /**
  * @swagger
  * tags:
