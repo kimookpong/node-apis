@@ -1,12 +1,21 @@
 const express = require("express");
 const userController = require("./controllers/userController");
+const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
 const SwaggerDoc = require("../../middleware/swagger");
 const router = express.Router();
 
 // Swagger UI setup
-const swaggerDocument = new SwaggerDoc({module:"abc"});
-router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument.getSwaggerSpec()));
+const swaggerDocument = new SwaggerDoc({ module: "abc" });
+router.use(
+  "/docs",
+  basicAuth({
+    users: { admin: "password123" },
+    challenge: true,
+  }),
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument.getSwaggerSpec())
+);
 /**
  * @swagger
  * tags:
@@ -14,7 +23,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument.getSwaggerS
  *      description: จัดการข้อมูลผู้ใช้งาน
  *   -  name: Doc
  *      description: ข้อมูลเอกสาร
- *  
+ *
  */
 
 /**
@@ -36,9 +45,13 @@ router.get("/user", userController.userIndex);
  *          parameters:
  *              -   in: path
  *                  name: id
+ *                  description: รหัสหน่วยงาน
  *                  required: true
  *                  schema:
  *                      type: integer
+ *              -   in: path
+ *                  name: test
+ *                  description: สำหรับทดสอบ
  *          responses:
  *              200:
  *                  description: Successfully
