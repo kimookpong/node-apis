@@ -14,7 +14,7 @@ fs.readdirSync(modulesPath).forEach((module) => {
   app.use(`/api/${module}`, moduleRoutes);
 });
 
-console.log(greet("World"));
+// console.log(greet("World"));
 // Error handling middleware
 app.use((req, res, next) => {
   res.status(404).json({

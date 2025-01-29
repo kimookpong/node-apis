@@ -10,7 +10,7 @@ const swaggerDocument = new SwaggerDoc({ module: "demo" });
 router.use(
   "/docs",
   basicAuth({
-    users: { demo: "demo" },
+    users: { "demo": "demo" },
     challenge: true,
   }),
   swaggerUi.serve,
