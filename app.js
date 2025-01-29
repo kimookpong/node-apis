@@ -10,9 +10,9 @@ const moduleSupport = ["abc", "demo", "demo2"];
 app.use(express.json());
 
 moduleSupport.forEach((module) => {
-  const moduleRoutes = require(`./modules/${module}/routes`);
-  app.use(`/${apiName}/${module}`, moduleRoutes);
+  app.use(`/${apiName}/${module}`, require(`./modules/${module}/routes`));
 });
+
 
 // console.log(greet("World"));
 // Error handling middleware
