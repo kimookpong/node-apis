@@ -11,9 +11,9 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument.getSwaggerS
  * @swagger
  * tags:
  *   -  name: Users
- *      description: User management operations
+ *      description: จัดการข้อมูลผู้ใช้งาน
  *   -  name: Doc
- *      description: User management operations
+ *      description: ข้อมูลเอกสาร
  *  
  */
 
@@ -34,13 +34,8 @@ router.get("/user", userController.userIndex);
  *      get:
  *          tags: [Users]
  *          parameters:
- *              -   in: รหัสหน่วยงาน
- *                  name: id
- *                  required: true
- *                  schema:
- *                      type: integer
  *              -   in: path
- *                  name: number
+ *                  name: id
  *                  required: true
  *                  schema:
  *                      type: integer
