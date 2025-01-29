@@ -36,4 +36,9 @@ const getFind = async (req) => {
   return result.rows;
 };
 
-module.exports = { getAll, getFind };
+const del = async (req) => {
+  return req.params.id;
+
+}
+
+module.exports = { getAll, getFind ,del};

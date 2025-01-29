@@ -1,14 +1,6 @@
 const userModel = require("../models/userModel");
 
-exports.Index = async (req, res, next) => {
-  try {
-    res.json({ res: "test2" });
-  } catch (err) {
-    next(err);
-  }
-};
-
-exports.getAllUsers = async (req, res, next) => {
+exports.userIndex = async (req, res, next) => {
   try {
     const users = await userModel.getAll();
     res.json({ dt: users });
@@ -17,7 +9,7 @@ exports.getAllUsers = async (req, res, next) => {
   }
 };
 
-exports.getFind = async (req, res, next) => {
+exports.userFind = async (req, res, next) => {
   try {
     const users = await userModel.getFind(req);
     res.json({ dt: users });
@@ -25,3 +17,14 @@ exports.getFind = async (req, res, next) => {
     next(err);
   }
 };
+
+
+exports.userDetele = async (req, res, next) => {
+  try {
+    await userModel.delete(req);
+    res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
