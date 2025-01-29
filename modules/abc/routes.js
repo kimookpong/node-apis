@@ -36,6 +36,32 @@ router.use(
  */
 router.get("/user", userController.userIndex);
 
+
+/**
+ * @swagger
+ * /user:
+ *    post:
+ *      tags: [ABC]
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                email:
+ *                  type: string
+ *              example:
+ *                name: John Doe
+ *                email: john.doe@example.com
+ *          responses:
+ *              200:
+ *                 description: Successfully
+ */
+router.post("/user", userController.userIndex);
+
 /**
  * @swagger
  * /user/{id}:

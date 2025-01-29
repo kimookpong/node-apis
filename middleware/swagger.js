@@ -10,7 +10,7 @@ const SwaggerDoc = ({
   const baseUrl = process.env.BASE_URL || "http://localhost:3000";
     let servers = [{
       url: `${baseUrl}${module}`,
-      description: `${module.toUpperCase()} Server`,
+      description: `${module.toUpperCase()} API`,
     }];
 
   let options = {

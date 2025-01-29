@@ -1,5 +1,4 @@
 const express = require("express");
-const { greet } = require("wu-package");
 
 const app = express();
 
@@ -14,7 +13,6 @@ moduleSupport.forEach((module) => {
 });
 
 
-// console.log(greet("World"));
 // Error handling middleware
 app.use((req, res, next) => {
   res.status(404).json({

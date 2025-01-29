@@ -37,6 +37,8 @@ router.use(
  */
 router.get("/user", userController.userIndex);
 
+
+
 /**
  * @swagger
  * /user/{id}:
