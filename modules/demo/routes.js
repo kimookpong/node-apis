@@ -1,31 +1,28 @@
 const express = require("express");
 const userController = require("./controllers/userController");
+const router = express.Router();
+
+// Swagger UI Docs
 const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
 const SwaggerDoc = require("../../middleware/swagger");
-const router = express.Router();
-
-// Swagger UI setup
-const swaggerDocument = new SwaggerDoc({ module: "demo" });
+const Swagger = SwaggerDoc({ module: 'demo', title: "test" });
 router.use(
-  "/docs",
-  basicAuth({
-    users: { "demo": "demo" },
-    challenge: true,
-  }),
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument.getSwaggerSpec())
-);
-
+    `/docs`,
+    basicAuth({
+      users: { demo: "demo" },
+      challenge: true,
+    }),
+    swaggerUi.serveFiles(Swagger, {}),
+    swaggerUi.setup(Swagger)
+  );
 
 
 /**
  * @swagger
  * tags:
- *   -  name: Users
+ *   -  name: ABC
  *      description: จัดการข้อมูลผู้ใช้งาน
- *   -  name: Doc
- *      description: ข้อมูลเอกสาร
  *
  */
 
@@ -33,7 +30,7 @@ router.use(
  * @swagger
  * /user:
  *      get:
- *          tags: [Doc]
+ *          tags: [ABC]
  *          responses:
  *              200:
  *                 description: Successfully
@@ -44,7 +41,7 @@ router.get("/user", userController.userIndex);
  * @swagger
  * /user/{id}:
  *      get:
- *          tags: [Users]
+ *          tags: [ABC]
  *          parameters:
  *              -   in: path
  *                  name: id
@@ -61,21 +58,5 @@ router.get("/user", userController.userIndex);
  */
 router.get("/user/:id", userController.userFind);
 
-/**
- * @swagger
- * /user/{id}:
- *      delete:
- *          tags: [Users]
- *          parameters:
- *              -   in: รหัสหน่วยงาน
- *                  name: id
- *                  required: true
- *                  schema:
- *                      type: integer
- *          responses:
- *              200:
- *                  description: Successfully
- */
-router.delete("/user/:id", userController.userDetele);
 
 module.exports = router;

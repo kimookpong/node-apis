@@ -1,31 +1,31 @@
 require("dotenv").config();
 const swaggerJSDoc = require("swagger-jsdoc");
-const path = require("path");
 
-class SwaggerDoc {
-  constructor({module = "abc"}) {
-    this.swaggerOptions = {
-      definition: {
-         openapi: "3.0.0",
-        info: {
-          title: "API documentation",
-          version: "1.0.0",
-        },
-        servers: [
-          {
-            url: process.env.BASE_URL + module,
+const SwaggerDoc = ({
+  module = "abc",
+  title = "API documentation",
+  version = "1.0.0",
+  description = "",
+}) => {
+  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    let servers = [{
+      url: `${baseUrl}${module}`,
+      description: `${module.toUpperCase()} Server`,
+    }];
 
-          },
-        ],
+  let options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: title,
+        version: version,
+        description: description,
       },
-      apis: [path.join(__dirname, `../modules/${module}/routes.js`)],
-    };
-  }
-
-  getSwaggerSpec() {
-    return swaggerJSDoc(this.swaggerOptions);
-  }
-}
-
+       servers: servers,
+    },
+    apis: [`./modules/${module}/routes.js`],
+  };
+  return swaggerJSDoc(options);
+};
 
 module.exports = SwaggerDoc;

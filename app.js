@@ -1,17 +1,17 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
-const {greet} = require("wu-package");
+const { greet } = require("wu-package");
+
 const app = express();
+
+const apiName = "api";
+const moduleSupport = ["abc", "demo"];
 
 // Middleware
 app.use(express.json());
 
-// Dynamically load routes from modules
-const modulesPath = path.join(__dirname, "modules");
-fs.readdirSync(modulesPath).forEach((module) => {
+moduleSupport.forEach((module) => {
   const moduleRoutes = require(`./modules/${module}/routes`);
-  app.use(`/api/${module}`, moduleRoutes);
+  app.use(`/${apiName}/${module}`, moduleRoutes);
 });
 
 // console.log(greet("World"));
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   res.status(404).json({
     code: 404,
     message: "The requested route was not found on the server.",
-    path: process.env.NODE_ENV === "development" ? req.originalUrl: undefined,
+    path: process.env.NODE_ENV === "development" ? req.originalUrl : undefined,
   });
 });
 const errorHandler = require("./middleware/error-handler");
