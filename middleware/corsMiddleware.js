@@ -1,5 +1,5 @@
 class CorsMiddleware {
-  static handle(req, res, allowedOrigins = []) {
+  static handle() {
     const origin = req.headers.origin;
 
     if (allowedOrigins.includes(origin)) {

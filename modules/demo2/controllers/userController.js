@@ -1,9 +1,10 @@
 const userModel = require("../models/userModel");
+const Route = require("../../../middleware/routeMiddleware");
 
 exports.userIndex = async (req, res, next) => {
   try {
     const users = await userModel.getAll();
-    res.json({ dt: users });
+    Route.sendResponse(res, 200, { dt: users });
   } catch (err) {
     next(err);
   }
@@ -12,19 +13,17 @@ exports.userIndex = async (req, res, next) => {
 exports.userFind = async (req, res, next) => {
   try {
     const users = await userModel.getFind(req);
-    res.json({ dt: users });
+    Route.sendResponse(res, 200, { dt: users });
   } catch (err) {
     next(err);
   }
 };
-
 
 exports.userDetele = async (req, res, next) => {
   try {
     await userModel.delete(req);
-    res.status(204).send();
+    Route.sendResponse(res, 200, { dt: users });
   } catch (err) {
     next(err);
   }
 };
-
