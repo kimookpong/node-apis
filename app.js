@@ -18,8 +18,7 @@ moduleSupport.forEach((mod) => {
 });
 
 // Error handling middleware
-app.use(Route.notFound);
-app.use(Route.errorHandle);
+Route.errorHandler(app);
 
 // Start server
 const PORT = process.env.PORT || 3000;

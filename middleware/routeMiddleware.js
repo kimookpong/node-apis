@@ -1,4 +1,8 @@
 class Route {
+  static errorHandler(app) {
+    app.use(this.notFound);
+    app.use(this.errorHandle);
+  }
   static notFound(req, res, next) {
     const error = new Error(`Not Found`);
     res.status(404);
