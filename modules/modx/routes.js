@@ -13,7 +13,7 @@ router.use(
     {
       module: "modx",
       title: "modx ",
-      description: "API Documentation for modx",
+      description: "API Documentation for modx  Author: นายมานิต จิตต์ประไพย",
       version: "1.0.1",
     }, // info
     { modx: "modx" } // user login
@@ -27,6 +27,7 @@ router.use(
  *     description: จัดการ sprint แต่ละรอบ
  *   - name: productBacklog
  *     description: จัดการ product backlog ของ sprint แต่ละรอบ
+ *
  */
 
 // Routes
