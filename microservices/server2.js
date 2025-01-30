@@ -1,10 +1,21 @@
-const express = require("express");
-const app = express();
+require("dotenv").config({ path: "../.env" });
 
-const moduleSupport = ["demo", "demo2"];
+const express = require("express");
+const CorsMiddleware = require("../middleware/corsMiddleware");
 
 // Middleware
+const app = express();
+app.use((req, res, next) => {
+  CorsMiddleware.handle(req, res, ["http://localhost"]);
+  next();
+});
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.send("Welcome to the server");
+});
+
+// Modules support
+const moduleSupport = ["demo", "demo2"];
 moduleSupport.forEach((module) => {
   app.use(`/${module}`, require(`../modules/${module}/routes`));
 });

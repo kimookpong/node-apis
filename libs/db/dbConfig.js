@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 function dbConfig(moduleName) {
   const module = moduleName.toUpperCase();
   return {
