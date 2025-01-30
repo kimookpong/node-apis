@@ -9,5 +9,4 @@ router.post("/user", userController.userIndex);
 router.patch("/user/:id", userController.userFind);
 router.delete("/user/:id", userController.userFind);
 
-
 module.exports = router;

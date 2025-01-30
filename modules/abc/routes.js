@@ -1,10 +1,8 @@
 const express = require("express");
 const userController = require("./controllers/userController");
-//
 const SwaggerMiddleware = require("../../middleware/SwaggerMiddleware");
 
 const router = express.Router();
-//
 router.get("/", (req, res) => {
   res.send("Welcome to the server");
 });

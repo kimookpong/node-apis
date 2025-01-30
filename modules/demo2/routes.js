@@ -1,22 +1,18 @@
 const express = require("express");
 const userController = require("./controllers/userController");
+const SwaggerMiddleware = require("../../middleware/SwaggerMiddleware");
+
 const router = express.Router();
-
-// Swagger UI Docs
-const basicAuth = require("express-basic-auth");
-const swaggerUi = require("swagger-ui-express");
-const SwaggerDoc = require("../../middleware/swagger");
-const Swagger = SwaggerDoc({ module: 'demo2', title: "API documentation" });
+router.get("/", (req, res) => {
+  res.send("Welcome to the server");
+});
 router.use(
-    `/docs`,
-    basicAuth({
-      users: { demo: "demo" },
-      challenge: true,
-    }),
-    swaggerUi.serveFiles(Swagger, {}),
-    swaggerUi.setup(Swagger)
-  );
-
+  "/docs",
+  ...SwaggerMiddleware.setup(
+    { module: "demo2", title: "API Documentation " }, // info
+    { admin: "admin" } // user login
+  )
+);
 
 /**
  * @swagger
@@ -36,8 +32,6 @@ router.use(
  *                 description: Successfully
  */
 router.get("/user", userController.userIndex);
-
-
 
 /**
  * @swagger
@@ -59,6 +53,5 @@ router.get("/user", userController.userIndex);
  *                  description: Successfully
  */
 router.get("/user/:id", userController.userFind);
-
 
 module.exports = router;

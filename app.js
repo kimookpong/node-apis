@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 // Modules support
-const moduleSupport = ["abc", "demo", "demo2"];
+const moduleSupport = ["abc", "demo", "demo2", "modx"];
 moduleSupport.forEach((mod) => {
   app.use(`/${mod}`, require(`./modules/${mod}/routes`));
 });

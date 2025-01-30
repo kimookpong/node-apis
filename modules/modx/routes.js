@@ -1,22 +1,25 @@
 const express = require("express");
 const sprintController = require("./controllers/sprintController");
 const productBacklogController = require("./controllers/productBacklogController");
-const router = express.Router();
+const SwaggerMiddleware = require("../../middleware/SwaggerMiddleware");
 
-// Swagger UI Docs
-const basicAuth = require("express-basic-auth");
-const swaggerUi = require("swagger-ui-express");
-const SwaggerDoc = require("../../middleware/swagger");
-const Swagger = SwaggerDoc({ module: 'modx', title: "modx " , description: "API Documentation for modx" , version: "1.0.1" });
+const router = express.Router();
+router.get("/", (req, res) => {
+  res.send("Welcome to the server");
+});
 router.use(
-    `/docs`,
-    basicAuth({
-      users: { admin: "admin" },
-      challenge: true,
-    }),
-    swaggerUi.serveFiles(Swagger, {}),
-    swaggerUi.setup(Swagger)
-  );
+  "/docs",
+  ...SwaggerMiddleware.setup(
+    {
+      module: "modx",
+      title: "modx ",
+      description: "API Documentation for modx",
+      version: "1.0.1",
+    }, // info
+    { modx: "modx" } // user login
+  )
+);
+
 /**
  * @swagger
  * tags:
@@ -38,9 +41,7 @@ router.use(
  *                 description: Successfully
  */
 
-
 router.get("/sprint/index", sprintController.sprintIndex);
-
 
 /**
  * @swagger
@@ -69,11 +70,9 @@ router.get("/sprint/index", sprintController.sprintIndex);
  *                 description: Successfully
  */
 
-
 router.post("/sprint/create", sprintController.sprintCreate);
 
-
-/** 
+/**
  * @swagger
  * /sprint/find/{id}:
  *      get:
@@ -91,7 +90,6 @@ router.post("/sprint/create", sprintController.sprintCreate);
  *                  description: Successfully
  */
 router.get("/sprint/find/:id", sprintController.sprintFind);
-
 
 /**
  * @swagger
@@ -128,8 +126,6 @@ router.get("/sprint/find/:id", sprintController.sprintFind);
  */
 router.put("/sprint/update/:id", sprintController.sprintUpdate);
 
-
-
 /**
  * @swagger
  * /sprint/delete/{id}:
@@ -149,8 +145,6 @@ router.put("/sprint/update/:id", sprintController.sprintUpdate);
  */
 router.delete("/sprint/delete/:id", sprintController.sprintDelete);
 
-
-
 /**
  * @swagger
  * /productBacklog/index:
@@ -161,8 +155,10 @@ router.delete("/sprint/delete/:id", sprintController.sprintDelete);
  *              200:
  *                 description: Successfully
  */
-router.get("/productBacklog/index", productBacklogController.productBacklogIndex);
-
+router.get(
+  "/productBacklog/index",
+  productBacklogController.productBacklogIndex
+);
 
 /**
  * @swagger
@@ -211,7 +207,9 @@ router.get("/productBacklog/index", productBacklogController.productBacklogIndex
  *          200:
  *            description: Successfully
  */
-router.post("/productBacklog/create", productBacklogController.productBacklogCreate);
-
+router.post(
+  "/productBacklog/create",
+  productBacklogController.productBacklogCreate
+);
 
 module.exports = router;
