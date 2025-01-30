@@ -4,7 +4,7 @@ const SwaggerMiddleware = require("../../middleware/SwaggerMiddleware");
 
 const router = express.Router();
 router.get("/", (req, res) => {
-  res.send("Welcome to the ABC module");
+  res.json({ text: "Welcome to the ABC module" });
 });
 router.use(
   "/docs",

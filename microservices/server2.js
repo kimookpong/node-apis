@@ -6,24 +6,19 @@ const Route = require("../middleware/routeMiddleware");
 
 // Middleware
 const app = express();
-app.use((req, res, next) => {
-  CorsMiddleware.handle(req, res, ["http://localhost"]);
-  next();
-});
 app.use(express.json());
-app.get("/", (req, res) => {
-  Route.sendResponse(res, 200, "Welcome to the server");
-});
 
 // Modules support
-const moduleSupport = ["demo", "demo2"];
+const moduleSupport = ["modx"];
+app.get("/", (req, res) => {
+  res.json({ text: "Welcome to the server", moduleSupport });
+});
 moduleSupport.forEach((module) => {
   app.use(`/${module}`, require(`../modules/${module}/routes`));
 });
 
 // Error handling middleware
-app.use(Route.notFound);
-app.use(Route.errorHandle);
+Route.errorHandler(app);
 
 // Start server
 const PORT = 4001;

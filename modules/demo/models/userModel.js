@@ -18,7 +18,7 @@ const getAll = async () => {
   return result.rows;
 };
 
-const getFind = async (req) => {
+const getFind = async (id) => {
   const sql = `SELECT 
         PERSON.PERSON_ID,
         COALESCE(PERSON.TITLE_NAME, '') || COALESCE(PERSON.FIRST_NAME, '') || ' ' || COALESCE(PERSON.LAST_NAME, '') AS FULLNAME_TH,
@@ -26,7 +26,7 @@ const getFind = async (req) => {
         PERSON.POSITION_TH_NAME
       FROM PBL_VPER_PERSON PERSON
       WHERE PERSON.DIVISION_ID = :id`;
-  const binds = { id: req.params.id };
+  const binds = { id: id };
 
   // db connection setup //
   const connection = await Database.getConnection();
@@ -38,7 +38,6 @@ const getFind = async (req) => {
 
 const del = async (req) => {
   return req.params.id;
+};
 
-}
-
-module.exports = { getAll, getFind ,del};
+module.exports = { getAll, getFind, del };

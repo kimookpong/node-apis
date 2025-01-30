@@ -9,7 +9,7 @@ class Route {
     next(error);
   }
   static errorHandle(err, req, res, next) {
-    console.error("Error caught:", err);
+    //console.error("Error caught:", err);
     const statusCode = err.status || 404;
     res.status(statusCode).json({
       code: statusCode,
@@ -26,11 +26,13 @@ class Route {
   }
 
   static sendResponse = (res, statusCode, data = undefined) => {
-    res.status(statusCode).json({
-      code: statusCode,
-      message: "ok",
-      ...data,
-    });
+    if (!res.headersSent) {
+      res.status(statusCode).json({
+        code: statusCode,
+        message: "ok",
+        ...data,
+      });
+    }
   };
 }
 

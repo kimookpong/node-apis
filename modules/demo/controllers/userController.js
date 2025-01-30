@@ -12,7 +12,11 @@ exports.userIndex = async (req, res, next) => {
 
 exports.userFind = async (req, res, next) => {
   try {
-    const users = await userModel.getFind(req);
+    const { id } = req.params;
+    if (id === 41) {
+      Route.sendResponse(res, 400, { message: "id must not 41" });
+    }
+    const users = await userModel.getFind(id);
     Route.sendResponse(res, 200, { dt: users });
   } catch (err) {
     next(err);

@@ -7,12 +7,11 @@ const Route = require("./middleware/routeMiddleware");
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  Route.sendResponse(res, 200, "Welcome to the server");
-});
-
 // Modules support
 const moduleSupport = ["abc", "demo", "demo2", "modx"];
+app.get("/", (req, res) => {
+  res.json({ text: "Welcome to the server", moduleSupport });
+});
 moduleSupport.forEach((mod) => {
   app.use(`/${mod}`, require(`./modules/${mod}/routes`));
 });
