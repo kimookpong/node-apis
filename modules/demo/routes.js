@@ -3,7 +3,7 @@ const userController = require("./controllers/userController");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send("Welcome to the DEMO module");
+  res.json({ text: "Welcome to the DEMO module" });
 });
 
 router.get("/user", userController.userIndex);

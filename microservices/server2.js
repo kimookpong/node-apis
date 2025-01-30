@@ -11,10 +11,7 @@ app.use(express.json());
 // Modules support
 const moduleSupport = ["modx"];
 app.get("/", (req, res) => {
-  Route.sendResponse(res, 200, {
-    text: "Welcome to the server",
-    moduleSupport,
-  });
+  res.json({ text: "Welcome to the server", moduleSupport });
 });
 moduleSupport.forEach((module) => {
   app.use(`/${module}`, require(`../modules/${module}/routes`));
