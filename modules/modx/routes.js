@@ -5,7 +5,7 @@ const SwaggerMiddleware = require("../../middleware/SwaggerMiddleware");
 
 const router = express.Router();
 router.get("/", (req, res) => {
-  res.send("Welcome to the server");
+  res.send("Welcome to the MODX module");
 });
 router.use(
   "/docs",
