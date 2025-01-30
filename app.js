@@ -4,7 +4,7 @@ const { greet } = require("wu-package");
 const app = express();
 
 const apiName = "api";
-const moduleSupport = ["abc", "demo"];
+const moduleSupport = ["abc", "demo", "modx"];
 
 // Middleware
 app.use(express.json());

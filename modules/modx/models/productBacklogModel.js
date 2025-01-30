@@ -1,7 +1,7 @@
 const Database = require("../db-connection");
 
 const getAll = async () => {
-  const sql = `SELECT * FROM MODX_SPRINT`;
+  const sql = `SELECT ID,CODE,TITLE,AS_A FROM MODX_PRODUCT_BACKLOG`;
   const binds = {};
 
   // db connection setup //
@@ -14,11 +14,19 @@ const getAll = async () => {
 
 
 const create = async (data) => {
-  const sql = `INSERT INTO MODX_SPRINT (SPRINT_NAME, START_DATE,END_DATE) VALUES (:SPRINT_NAME, :START_DATE, :END_DATE)`;
+  const sql = `INSERT INTO MODX_PRODUCT_BACKLOG (CODE,TITLE,AS_A,I_WANT,SO_THAT,ACC_CRIT,PRIORITYS,ESTIMATION,SPRINT_ID,COLOR)
+  VALUES (:CODE,:TITLE,:AS_A,:I_WANT,:SO_THAT,:ACC_CRIT,:PRIORITYS,:ESTIMATION,:SPRINT_ID,:COLOR)`;
   const binds = {
-    SPRINT_NAME: data.SPRINT_NAME,
-    START_DATE: data.START_DATE,
-    END_DATE: data.END_DATE,
+    CODE: data.CODE,
+    TITLE: data.TITLE,
+    AS_A: data.AS_A,
+    I_WANT: data.I_WANT,
+    SO_THAT: data.SO_THAT,
+    ACC_CRIT: data.ACC_CRIT,
+    PRIORITYS: data.PRIORITYS,
+    ESTIMATION: data.ESTIMATION,
+    SPRINT_ID: data.SPRINT_ID,
+    COLOR: data.COLOR
   };
 
   // db connection setup //
