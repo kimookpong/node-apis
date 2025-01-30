@@ -1,14 +1,12 @@
 const express = require("express");
 const app = express();
 
-const apiName = "api";
-const moduleSupport = ["abc", "demo", "modx"];
+const moduleSupport = ["abc"];
 
 // Middleware
 app.use(express.json());
-
-moduleSupport.forEach((mod) => {
-  app.use(`/${mod}`, require(`./modules/${mod}/routes`));
+moduleSupport.forEach((module) => {
+  app.use(`/${module}`, require(`../modules/${module}/routes`));
 });
 
 // Error handling middleware
@@ -19,11 +17,11 @@ app.use((req, res, next) => {
     path: process.env.NODE_ENV === "development" ? req.originalUrl : undefined,
   });
 });
-const errorHandler = require("./middleware/error-handler");
+const errorHandler = require("../middleware/error-handler");
 app.use(errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

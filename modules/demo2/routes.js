@@ -6,16 +6,17 @@ const router = express.Router();
 const basicAuth = require("express-basic-auth");
 const swaggerUi = require("swagger-ui-express");
 const SwaggerDoc = require("../../middleware/swagger");
-const Swagger = SwaggerDoc({ module: 'abc', title: "ABC " });
+const Swagger = SwaggerDoc({ module: 'demo2', title: "API documentation" });
 router.use(
     `/docs`,
     basicAuth({
-      users: { admin: "admin" },
+      users: { demo: "demo" },
       challenge: true,
     }),
     swaggerUi.serveFiles(Swagger, {}),
     swaggerUi.setup(Swagger)
   );
+
 
 /**
  * @swagger
@@ -37,30 +38,6 @@ router.use(
 router.get("/user", userController.userIndex);
 
 
-/**
- * @swagger
- * /user:
- *    post:
- *      tags: [ABC]
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                name:
- *                  type: string
- *                email:
- *                  type: string
- *              example:
- *                name: John Doe
- *                email: john.doe@example.com
- *          responses:
- *              200:
- *                 description: Successfully
- */
-router.post("/user", userController.userIndex);
 
 /**
  * @swagger
@@ -83,21 +60,5 @@ router.post("/user", userController.userIndex);
  */
 router.get("/user/:id", userController.userFind);
 
-/**
- * @swagger
- * /user/{id}:
- *      delete:
- *          tags: [ABC]
- *          parameters:
- *              -   in: รหัสหน่วยงาน
- *                  name: id
- *                  required: true
- *                  schema:
- *                      type: integer
- *          responses:
- *              200:
- *                  description: Successfully
- */
-router.delete("/user/:id", userController.userDetele);
 
 module.exports = router;

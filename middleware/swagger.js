@@ -1,5 +1,6 @@
 require("dotenv").config();
 const swaggerJSDoc = require("swagger-jsdoc");
+const path = require("path");
 
 const SwaggerDoc = ({
   module = "abc",
@@ -7,23 +8,28 @@ const SwaggerDoc = ({
   version = "1.0.0",
   description = "",
 }) => {
-  const baseUrl = process.env.BASE_URL || "http://localhost:3000";
-    let servers = [{
-      url: `${baseUrl}${module}`,
-      description: `${module.toUpperCase()} Server`,
-    }];
-
   let options = {
     definition: {
+      //swagger: "2.0",
       openapi: "3.0.0",
       info: {
         title: title,
         version: version,
         description: description,
       },
-       servers: servers,
+      servers: [
+        {
+          url: `/${module}`,
+          description: "Development server",
+        },
+      ],
+      externalDocs: {
+        description: "คู่มือการใช้งาน Swagger",
+        url: "https://swagger.io/docs/specification/v3_0/paths-and-operations/",
+      },
+      //basePath: `/${module}`,
     },
-    apis: [`./modules/${module}/routes.js`],
+    apis: [path.join(__dirname, `../modules/${module}/routes.js`)],
   };
   return swaggerJSDoc(options);
 };
